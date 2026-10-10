@@ -44,4 +44,8 @@ public class Container {
             System.out.println(m.toString());
         }
     }
+
+    public int size() {
+        return members.size();
+    }
 }
