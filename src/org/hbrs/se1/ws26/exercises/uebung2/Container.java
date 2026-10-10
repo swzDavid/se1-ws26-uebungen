@@ -24,12 +24,6 @@ public class Container {
         return false;
     }
 
-    /*
-    Der Rückgabewert könnte vom Aufrufer ignoriert werden, da der Compiler zur Laufzeit keinen Fehler wirft.
-    Dann bleibt der Fehler unbemerkt. Der Aufrufer muss den String zunächst manuell auswerten und erzwingt
-    keine Fehlerbehnadlung.
-     */
-
     public String deleteMember(Integer id) {
         for (Member m : members) {
             if (m.getID().equals(id)) {
@@ -38,5 +32,16 @@ public class Container {
             }
         }
         return "Member-Objekt mit der ID " + id + " ist nicht vorhanden!";
+    }
+    /*
+    Der Rückgabewert könnte vom Aufrufer ignoriert werden, da der Compiler zur Laufzeit keinen Fehler wirft.
+    Dann bleibt der Fehler unbemerkt. Der Aufrufer muss den String zunächst manuell auswerten und erzwingt
+    keine Fehlerbehnadlung.
+     */
+
+    public void dump() {
+        for (Member m : members) {
+            System.out.println(m.toString());
+        }
     }
 }

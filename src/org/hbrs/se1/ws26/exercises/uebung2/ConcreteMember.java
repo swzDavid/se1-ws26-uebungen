@@ -12,4 +12,9 @@ public class ConcreteMember implements Member {
     public Integer getID() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Member (ID = " + id + ")";
+    }
 }
