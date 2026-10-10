@@ -40,7 +40,7 @@ public class ContainerTest {
         assertEquals(2, container.size());
 
         //nicht vorhandenes Member löschen
-        container.deleteMember(67);
+        assertEquals("Member-Objekt mit der ID 67 ist nicht vorhanden!", container.deleteMember(67));
         assertEquals(2, container.size());
 
         // size ausgeben
@@ -56,11 +56,11 @@ public class ContainerTest {
         assertEquals(2, container.size());
 
         // erstes Member löschen
-        container.deleteMember(22);
+        assertEquals("Member-Objekt mit der ID 22 wurde gelöscht.", container.deleteMember(22));
         assertEquals(1, container.size());
 
         // zweites Member löschen
-        container.deleteMember(33);
+        assertEquals("Member-Objekt mit der ID 33 wurde gelöscht.", container.deleteMember(33));
         assertEquals(0, container.size());
 
     }
