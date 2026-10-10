@@ -8,14 +8,18 @@ public class Container {
     private List<Member> members = new ArrayList<>();
 
     public void addMember(Member member) throws ContainerException {
-        if (members.contains(member.getID())) {
+        if (member == null) {
+            throw new ContainerException("Es darf kein null-Objekt hinzugefügt werden!");
+        }
+
+        if (checkMember(member.getID())) {
             throw new ContainerException(
                     "Das Member-Objekt mit der ID " + member.getID() + " ist bereits vorhanden!");
         }
         members.add(member);
     }
 
-    public boolean contains(Integer id) {
+    public boolean checkMember(Integer id) {
         for (Member m : members) {
             if (m.getID().equals(id)) {
                 return true;
