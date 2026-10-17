@@ -1,4 +1,8 @@
 package org.hbrs.se1.ws26.exercises.uebung3.persistence;
+
+import org.hbrs.se1.ws26.exercises.uebung2.Member;
+
+import java.io.*;
 import java.util.List;
 
 public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
@@ -19,8 +23,18 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * https://www.digitalocean.com/community/tutorials/objectoutputstream-java-write-object-file
      * (Last Access: Oct, 12th 2026)
      */
-    public void save(List<E> member) throws PersistenceException  {
-
+    public void save(List<E> member) throws PersistenceException {
+        try {
+            FileOutputStream fos = new FileOutputStream(location);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(member);
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            throw new PersistenceException(
+                    PersistenceException.ExceptionType.ConnectionNotAvailable,
+                    "Fehler beim Speichern: " + e.getMessage());
+        }
     }
 
     @Override
@@ -29,7 +43,7 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
      * Some coding examples come for free :-)
      * Take also a look at the import statements above ;-!
      */
-    public List<E> load() throws PersistenceException  {
+    public List<E> load() throws PersistenceException {
         // Some Coding hints ;-)
 
         // ObjectInputStream ois = null;
@@ -50,6 +64,29 @@ public class PersistenceStrategyStream<E> implements PersistenceStrategy<E> {
         // return newListe
 
         // and finally close the streams
-        return null;
+
+        ObjectInputStream ois = null;
+        FileInputStream fis = null;
+        Object obj = null;
+
+        try {
+            fis = new FileInputStream(location);
+            ois = new ObjectInputStream(fis);
+            obj = ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new PersistenceException(
+                    PersistenceException.ExceptionType.ConnectionNotAvailable,
+                    "Fehler beim Laden: " + e.getMessage());
+        }
+
+        if (obj instanceof List<?>) {
+            return (List<E>) obj;
+        }
+
+        throw new PersistenceException(
+                PersistenceException.ExceptionType.ConnectionNotAvailable,
+                "Die Datei enthält keine Liste!");
     }
 }

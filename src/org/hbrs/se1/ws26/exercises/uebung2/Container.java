@@ -1,5 +1,8 @@
 package org.hbrs.se1.ws26.exercises.uebung2;
 
+import org.hbrs.se1.ws26.exercises.uebung3.persistence.PersistenceException;
+import org.hbrs.se1.ws26.exercises.uebung3.persistence.PersistenceStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,7 @@ public class Container {
 
     private static Container instance;
     private List<Member> members = new ArrayList<>();
+    private PersistenceStrategy<Member> persistenceStrategy;
 
     private Container() {
     }
@@ -65,5 +69,41 @@ public class Container {
 
     public int size() {
         return members.size();
+    }
+
+    public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
+        this.persistenceStrategy = persistenceStrategy;
+    }
+
+    public void store() throws PersistenceException {
+        if (persistenceStrategy == null) {
+            throw new PersistenceException(
+                    PersistenceException.ExceptionType.NoStrategyIsSet,
+                    "Es wurde keine Persistenz-Strategie gesetzt!");
+        }
+
+        try {
+            persistenceStrategy.save(members);
+        } catch (UnsupportedOperationException e) {
+            throw new PersistenceException(
+                    PersistenceException.ExceptionType.ImplementationNotAvailable,
+                    "Die Implementierung ist nicht verfügbar!");
+        }
+    }
+
+    public void load() throws PersistenceException {
+        if (persistenceStrategy == null) {
+            throw new PersistenceException(
+                    PersistenceException.ExceptionType.NoStrategyIsSet,
+                    "Es wurde keine Persistenz-Strategie gesetzt!");
+        }
+
+        try {
+            members = persistenceStrategy.load();
+        } catch (UnsupportedOperationException e) {
+            throw new PersistenceException(
+                    PersistenceException.ExceptionType.ImplementationNotAvailable,
+                    "Die Implementierung ist nicht verfügbar!");
+        }
     }
 }
