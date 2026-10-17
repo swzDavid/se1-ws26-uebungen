@@ -5,7 +5,21 @@ import java.util.List;
 
 public class Container {
 
+    private static Container instance;
     private List<Member> members = new ArrayList<>();
+
+    private Container() {
+    }
+
+    /*
+    Singleton Pattern, privater Konstruktor, statisches Attribut instance, statische getInstance()
+     */
+    public static Container getInstance() {
+        if (instance == null) {
+            instance = new Container();
+        }
+        return instance;
+    }
 
     public void addMember(Member member) throws ContainerException {
         if (member == null) {
