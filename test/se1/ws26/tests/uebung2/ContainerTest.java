@@ -4,6 +4,7 @@ import org.hbrs.se1.ws26.exercises.uebung2.ConcreteMember;
 import org.hbrs.se1.ws26.exercises.uebung2.Container;
 import org.hbrs.se1.ws26.exercises.uebung2.ContainerException;
 import org.hbrs.se1.ws26.exercises.uebung2.Member;
+import org.hbrs.se1.ws26.exercises.uebung3.MemberView;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +13,7 @@ public class ContainerTest {
 
     @Test
     public void testContainer() throws ContainerException {
-        Container container = new Container();
+        Container container = Container.getInstance();
         Member m1 = new ConcreteMember(22);
         Member m2 = new ConcreteMember(33);
 
@@ -28,7 +29,8 @@ public class ContainerTest {
         assertEquals(2, container.size());
 
         // Member ausgeben
-        container.dump();
+        MemberView mv = new MemberView();
+        mv.dump(container.getCurrentList());
         assertEquals(2, container.size());
 
         // vorhandenes Member hinzufügen

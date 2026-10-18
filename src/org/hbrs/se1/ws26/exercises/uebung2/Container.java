@@ -69,6 +69,10 @@ public class Container {
         return members;
     }
 
+    public void deleteAllMember() {
+        members.clear();
+    }
+
     public void setPersistenceStrategy(PersistenceStrategy<Member> persistenceStrategy) {
         this.persistenceStrategy = persistenceStrategy;
     }
