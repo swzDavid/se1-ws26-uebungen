@@ -1,6 +1,8 @@
 package org.hbrs.se1.ws26.exercises.uebung4;
 
-public class UserStory {
+import java.io.Serializable;
+
+public class UserStory implements Serializable {
 
     private static int zaehler_id = 0;
     private int id;

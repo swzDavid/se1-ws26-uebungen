@@ -1,7 +1,5 @@
 package org.hbrs.se1.ws26.exercises.uebung3.persistence;
 
-import org.hbrs.se1.ws26.exercises.uebung2.Member;
-
 import java.io.*;
 import java.util.List;
 
