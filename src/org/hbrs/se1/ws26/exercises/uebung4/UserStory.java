@@ -12,6 +12,16 @@ public class UserStory implements Serializable {
     private String projekt;
 
     public UserStory(String titel, String akzeptanzkriterium, String projekt, int mehrwert, int strafe, int aufwand, int risiko) {
+        if (titel == null || titel.isEmpty()) {
+            throw new IllegalArgumentException("Der Titel darf nicht leer sein!");
+        }
+        if (akzeptanzkriterium == null || akzeptanzkriterium.isEmpty()) {
+            throw new IllegalArgumentException("Das Akzeptanzkriterium darf nicht leer sein!");
+        }
+        if (projekt == null || projekt.isEmpty()) {
+            throw new IllegalArgumentException("Das Projekt darf nicht null sein!");
+        }
+
         id = zaehler_id++;
         this.id = id;
         this.titel = titel;

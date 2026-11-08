@@ -1,6 +1,4 @@
-package org.hbrs.se1.ws26.exercises.uebung4.prototype;
-
-import org.hbrs.se1.ws26.exercises.uebung4.UserStoryView;
+package org.hbrs.se1.ws26.exercises.uebung4;
 
 public class Main {
 

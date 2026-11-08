@@ -3,7 +3,6 @@ package org.hbrs.se1.ws26.exercises.uebung4;
 import org.hbrs.se1.ws26.exercises.uebung4.persistence.PersistenceException;
 import org.hbrs.se1.ws26.exercises.uebung4.persistence.PersistenceStrategyStream;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class UserStoryView {
@@ -31,11 +30,11 @@ public class UserStoryView {
             if (strings[0].equals("help")) {
                 System.out.println("Folgende Befehle stehen zur Verfuegung: help, dump, enter, store, load, exit");
             }
-            // Auswahl der bisher implementierten Befehle:
+
             if (strings[0].equals("dump")) {
                 startAusgabe();
             }
-            // Auswahl der bisher implementierten Befehle:
+
             if (strings[0].equals("enter")) {
                 enterUserStory(scanner);
             }
