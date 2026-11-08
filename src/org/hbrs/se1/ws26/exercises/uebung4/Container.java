@@ -2,6 +2,7 @@ package org.hbrs.se1.ws26.exercises.uebung4;
 
 import org.hbrs.se1.ws26.exercises.uebung4.persistence.PersistenceException;
 import org.hbrs.se1.ws26.exercises.uebung4.persistence.PersistenceStrategy;
+import org.hbrs.se1.ws26.exercises.uebung4.persistence.PersistenceStrategyStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class Container {
 
     private static Container instance;
     private List<UserStory> UserStories = new ArrayList<>();
-    private PersistenceStrategy<UserStory> persistenceStrategy;
+    private PersistenceStrategy<UserStory> persistenceStrategy = new PersistenceStrategyStream<>();
 
     private Container() {
     }
@@ -102,6 +103,16 @@ public class Container {
 
         try {
             UserStories = persistenceStrategy.load();
+
+            // ID-Zähler auf höchste geladene ID + 1 setzen
+            int max = -1;
+            for (UserStory us : UserStories) {
+                if (us.getId() > max) {
+                    max = us.getId();
+                }
+            }
+            UserStory.setZaehlerId(max + 1);
+
         } catch (UnsupportedOperationException e) {
             throw new PersistenceException(
                     PersistenceException.ExceptionType.ImplementationNotAvailable,

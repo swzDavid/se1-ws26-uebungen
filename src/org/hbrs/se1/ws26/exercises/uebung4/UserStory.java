@@ -9,17 +9,14 @@ public class UserStory implements Serializable {
     private String titel;
     private double prio;
     private String akzeptanzkriterium;
-    private Projekt projekt;
-    private int mehrwert;
-    private int strafe;
-    private int aufwand;
-    private int risiko;
+    private String projekt;
 
-    public UserStory(String titel, String akzeptanzkriterium, Projekt projekt, int mehrwert, int strafe, int aufwand, int risiko) {
+    public UserStory(String titel, String akzeptanzkriterium, String projekt, int mehrwert, int strafe, int aufwand, int risiko) {
         id = zaehler_id++;
         this.id = id;
         this.titel = titel;
         this.akzeptanzkriterium = akzeptanzkriterium;
+        this.projekt = projekt;
         calculatePrio(mehrwert, strafe, aufwand, risiko);
     }
 
@@ -28,7 +25,7 @@ public class UserStory implements Serializable {
             throw new IllegalArgumentException();
         }
 
-        prio = (mehrwert + strafe) / (aufwand + risiko);
+        prio = (double) (mehrwert + strafe) / (aufwand + risiko);
     }
 
     private boolean istGueltig(int wert) {
@@ -68,11 +65,11 @@ public class UserStory implements Serializable {
         this.akzeptanzkriterium = akzeptanzkriterium;
     }
 
-    public Projekt getProjekt() {
+    public String getProjekt() {
         return projekt;
     }
 
-    public void setProjekt(Projekt projekt) {
+    public void setProjekt(String projekt) {
         this.projekt = projekt;
     }
 
@@ -84,19 +81,7 @@ public class UserStory implements Serializable {
         return prio;
     }
 
-    public int getMehrwert() {
-        return mehrwert;
-    }
-
-    public int getStrafe() {
-        return strafe;
-    }
-
-    public int getAufwand() {
-        return aufwand;
-    }
-
-    public int getRisiko() {
-        return risiko;
+    public static void setZaehlerId(int wert) {
+        zaehler_id = wert;
     }
 }
